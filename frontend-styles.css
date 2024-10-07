@@ -1,0 +1,91 @@
+header,
+footer {
+    z-index: 10;
+}
+
+.full-window-container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: 0;
+    z-index: 9;
+    background-color: #eeeeeeb8;
+    backdrop-filter: blur(5px);
+}    
+
+.full-window-container .centered-content-wrapper{
+    box-sizing: border-box;
+    border: 0;
+    margin: 0;
+    width: 500px;
+    min-width: 500px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    padding: 50px;
+    background: #286C89;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+    border-radius: 30px;
+}
+
+@media (max-width: 768px) {
+    .full-window-container .centered-content-wrapper{
+        width: auto;
+        min-width: auto;
+        left: 50px;
+        right: 50px;
+        transform: none;
+        top: 100px;
+    }
+}
+
+.full-window-container .centered-content-wrapper form {
+    margin: 0;
+    padding: 0;
+}
+
+.full-window-container .centered-content-wrapper form label{
+    color: #FFFFFF;
+    font-family: "Roboto", Sans-serif;
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.full-window-container .centered-content-wrapper form input:not([type="submit"]){
+    background-color: #ffffff;
+    border-radius: 33px;
+    font-family: var(--e-global-typography-text-font-family), Sans-serif;
+    font-weight: var(--e-global-typography-text-font-weight);
+    margin-top: 30px;
+    outline: none;
+}
+
+.full-window-container .centered-content-wrapper form input:not([type="submit"]):focus {
+    border-color: var(--e-global-color-d7ea5e2);
+}
+
+#veryfication-form-wrap .reload-page,
+.full-window-container .centered-content-wrapper form input[type="submit"]{
+    background-color: var(--e-global-color-d7ea5e2);
+    color: #ffffff;
+    border-color: var(--e-global-color-9b7a49f);
+    font-family: "Roboto", Sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    border-style: solid;
+    border-width: 2px 2px 2px 2px;
+    border-radius: 30px;
+    padding: 10px 30px;
+    cursor: pointer;
+    margin-top: 30px;
+    text-decoration: none;
+    line-height: 1;
+}
+
+#veryfication-form-wrap p {
+    margin: 0;
+}

@@ -2,6 +2,21 @@
 	$(document).ready(function(){
 	  let vars = aav_vars;
 	  let verifyForm = $("#"+aav_vars['verify_form_id']);
+
+	  if( $('body').hasClass('verifications-only') ) {
+		document.oncontextmenu = function() {
+			return false;
+		};
+
+		document.addEventListener('keydown', (event) => {
+			const isCtrlOrMeta = event.ctrlKey || event.metaKey;
+			const isUKey = event.key === 'u';
+		
+			if ((isCtrlOrMeta && isUKey) || event.code === 'F12') {
+				event.preventDefault();
+			}
+		});
+	  }
   
 	  verifyForm.on('submit', function(e){
 		e.preventDefault();

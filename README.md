@@ -1,6 +1,12 @@
 # 015-Verification-SMS-Access
 A plugin that allows you to add SMS verification, using the service https://www.015.cloud/, to view the contents of pages (posts)
 
+# Install plugin
+1. **Download the archive with the plugin.**
+2. **Unzip the archive to the root directory of your site, or install from the admin panel by clicking on "Add New Plugin"->"Upload Plugin", and upload the plugin zip**
+3. **Activate the plugin in the "Plugins" section of the admin panel.**
+4. **Make the necessary settings, following the instructions below.**
+
 ## Plugin settings
 CODE LIFETIME: This sets the time (in minutes) between sending a verification code to a user and deleting it from the database. The minimum value is 5 minutes.
 

@@ -1,7 +1,7 @@
 <form class="aav-form" id="015pbx_settings" data-action="default_send_settings">
     <?php
-		if( file_exists( AAV_PLUGIN_DIR . "images/twilio.png" ) ) {
-			echo "<img src='" .AAV_PLUGIN_DIR_URL. "images/015pbx.png' width='150' style='padding-top: 1rem;'/>";
+		if( file_exists( AAV_PLUGIN_DIR . "images/Hallo_015_logo.png" ) ) {
+			echo "<img src='" .AAV_PLUGIN_DIR_URL. "images/Hallo_015_logo.png' width='150' style='margin-top: 1rem;'/>";
 		} else {
 			echo "<h2>Twilio</h2>";
 		}

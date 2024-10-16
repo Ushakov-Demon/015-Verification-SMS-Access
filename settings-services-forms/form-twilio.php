@@ -1,7 +1,7 @@
 <form class="aav-form" id="twilio_settings" data-action="default_send_settings">    
     <?php
-		if( file_exists( AAV_PLUGIN_DIR . "images/twilio.png" ) ) {
-			echo "<img src='" .AAV_PLUGIN_DIR_URL. "images/twilio.png' width='150' style='padding-top: 1rem;'/>";
+		if( file_exists( AAV_PLUGIN_DIR . "images/Twilio-logo-red.svg" ) ) {
+			echo "<img src='" .AAV_PLUGIN_DIR_URL. "images/Twilio-logo-red.svg' width='150' style='margin-top: 1rem;'/>";
 		} else {
 			echo "<h2>Twilio</h2>";
 		}

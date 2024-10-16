@@ -1,0 +1,1 @@
+<input class="button button-primary" type="submit" value="<?php echo __( 'Send' ) ?>">

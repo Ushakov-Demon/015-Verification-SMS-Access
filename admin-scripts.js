@@ -5,6 +5,30 @@
     let contactsCheckboxes = contactsListTable.find( '.column-checkbox input[type="checkbox"]' );
     let bulkContactsForm   = $( '.bulk-verify-contacts' );
 
+    $( '.services-select' ).on( 'change', function() {
+        let inputName = $( this ).attr( 'name' );
+        let inputVal  = $( this ).val();
+        
+        let data = inputName + '=' + encodeURIComponent( inputVal );
+
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: ajaxurl,
+            data: {
+            	action: 'default_send_settings',
+            	formData: data,
+            },
+            success: function(resp){
+                if( true == resp[ 'success' ] ){
+                    window.location.reload();
+                }else{
+                    alert( resp[ 'data' ] );
+                }
+            }
+        });
+     } )
+
     // Default ajax action
 	$('.aav-form').submit( function(e) {
 		e.preventDefault();
@@ -17,7 +41,7 @@
             url: ajaxurl,
             data: {
             	action: action,
-            	formData: formData
+            	formData: formData,
             },
             success: function(resp){
                 if( true == resp[ 'success' ] ){

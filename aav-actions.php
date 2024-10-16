@@ -1,4 +1,6 @@
 <?php
+//TODO: add default forms ids meta.
+
 function has_verification( $type = "sms" ) {
 		$out = false;
 
@@ -58,6 +60,9 @@ function default_send_settings() {
 		AAV_015_PREFIX . "_auth_username",
 		AAV_015_PREFIX . "_auth_password",
 		AAV_015_PREFIX . "_snumber",
+		"twilio_account_sid",
+        "twilio_account_token",
+        "twilio_number_from",
 	];
 
 	foreach ( $inputs as $key => $value ) {
@@ -145,6 +150,28 @@ function print_verify_form() {
 }
 add_shortcode( 'print_verify_form', 'print_verify_form' );
 
+function get_sms_services_opt() {
+	$options = [
+		'015pbx' => [
+			'label' 	=> 'Hallo 015',
+			'selected'  => '015pbx' === AAV_SMS_SERVICE ? 'selected' : '',
+		],
+		'twilio' => [
+			'label' 	=> 'Twilio',
+			'selected'  => 'twilio' === AAV_SMS_SERVICE ? 'selected' : '',
+		],
+	];
+
+	$html = "";
+
+	foreach ( $options as $key => $option ) {
+		$html .= "<option value='{$key}' {$option['selected']}>{$option['label']}</option>";
+	}
+
+	return $html;
+}
+add_filter( 'get_sms_services_opt', 'get_sms_services_opt' );
+
 function get_pages_opt() {
 	$res = "<option>" . __( 'Select a page' ) . "</option>";
 	$quey_arrs = [
@@ -194,53 +221,22 @@ function send_sms_code( $user_phone_number ) {
 	global $wpdb;
 	$crypt      = new AAV_CRYPTO();
 	$code 		= apply_filters( 'generate_random_number', 4 );
-	$username   = $crypt->Decode( AAV_015_AUTH_USERNAME );
-	$password 	= $crypt->Decode( AAV_015_AUTH_PASSWORD );
-	$snumber    = $crypt->Decode( AAV_015_SNUMBER );
 	$message 	= apply_filters( 'replace_placeholders', $code );
 	$out        = [];
-	$url 		= 'https://www.015pbx.net/local/api/json/messages/text/send/';
     $table 		= $wpdb->prefix . 'aav_verifications';
     $test_q 	= $wpdb->get_col( "SELECT id FROM $table WHERE phone='" . $user_phone_number . "' AND status = 'sending'" );
 
-    if( ! empty( $test_q ) ) {
+    if ( ! empty( $test_q ) ) {
     	$out['SUCCESS'] = $code;
     	return $out;
     }
 
-	$data = array(
-	    'auth_username' => $username,
-	    'auth_password' => $password,
-	    'stype' 		=> '',
-	    'snumber' 		=> $snumber,
-	    'cnumber' 		=> $user_phone_number,
-	    'message' 		=> urlencode( $message ),
-	);
-
-
-
-	$curl = curl_init();
-	curl_setopt_array( $curl, [
-	    CURLOPT_URL 			=> $url,
-	    CURLOPT_RETURNTRANSFER 	=> true,
-	    CURLOPT_POST 			=> true,
-	    CURLOPT_POSTFIELDS 		=> http_build_query( $data ),
-	    CURLOPT_HTTPHEADER 		=> [
-	    	],
-	] );
-
-	$response = curl_exec( $curl );
-	curl_close( $curl );
-
-	if ( curl_errno( $curl ) ) {
-    	$out['ERROR'] = curl_error( $curl );
-	} else {
-		$responses = json_decode( $response )->responses[0];
-		if ( 204 !== $responses->code ) {
-			$out['ERROR'] = $responses->code;
-		} else {
-			$out['SUCCESS'] = $code;
-		}
+	if ( '015pbx' === AAV_SMS_SERVICE ) {
+		$send_response = new PBX_015( $message, $user_phone_number, $code );
+		$out = $send_response->message_response;
+	} elseif ( 'twilio' === AAV_SMS_SERVICE ) {
+		$send_response = new AAV_TWILIO( $message, $user_phone_number, $code );
+		$out = $send_response->response;
 	}
 
 	return $out;
@@ -323,6 +319,7 @@ function processing_verification_data() {
 		if ( AAV_VERIFY_INPUT_TEL_NAME == $k ) {
 			$user 		   = wp_get_current_user();
 			$send_code_res = send_sms_code( $v );
+
 			if ( array_key_exists( 'ERROR', $send_code_res ) ) {
 				wp_send_json_error( $send_code_res['ERROR'] );
 			} elseif ( array_key_exists( 'SUCCESS', $send_code_res ) ) {

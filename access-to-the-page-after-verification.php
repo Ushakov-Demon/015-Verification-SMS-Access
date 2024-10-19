@@ -4,7 +4,7 @@ Plugin Name: Access verification
 Description: Show page content only after SMS verification.
 Version: 1.1
 Author: Bazadev
-Plugin URI: https://bazadev.com.ua/case/sms-content/
+Plugin URI: https://bazadev.com.ua/en/case/verification-sms-access/
 */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

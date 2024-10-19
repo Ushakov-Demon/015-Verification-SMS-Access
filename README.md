@@ -1,5 +1,5 @@
 # 015 Verification SMS Access
-A plugin that allows you to add SMS verification, using the service https://www.015.cloud/, to view the contents of pages (posts)
+A plugin that allows you to add SMS verification, using the https://www.twilio.com/ && https://www.015.cloud/  services, to view the contents of pages (posts)
 
 ## Install plugin
 1. **Download the archive with the plugin.**

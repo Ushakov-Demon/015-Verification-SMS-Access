@@ -1,5 +1,4 @@
 <?php
-//TODO: add default forms ids meta.
 
 function has_verification( $type = "sms" ) {
 		$out = false;
@@ -63,6 +62,7 @@ function default_send_settings() {
 		"twilio_account_sid",
         "twilio_account_token",
         "twilio_number_from",
+		"smsmode_api_key",
 	];
 
 	foreach ( $inputs as $key => $value ) {
@@ -160,6 +160,10 @@ function get_sms_services_opt() {
 			'label' 	=> 'Twilio',
 			'selected'  => 'twilio' === AAV_SMS_SERVICE ? 'selected' : '',
 		],
+		'smsmode' => [
+			'label' 	=> 'Smsmode',
+			'selected'  => 'smsmode' === AAV_SMS_SERVICE ? 'selected' : '',
+		],
 	];
 
 	$html = "";
@@ -233,10 +237,13 @@ function send_sms_code( $user_phone_number ) {
 
 	if ( '015pbx' === AAV_SMS_SERVICE ) {
 		$send_response = new PBX_015( $message, $user_phone_number, $code );
-		$out = $send_response->message_response;
+		$out  = $send_response->response;
 	} elseif ( 'twilio' === AAV_SMS_SERVICE ) {
 		$send_response = new AAV_TWILIO( $message, $user_phone_number, $code );
-		$out = $send_response->response;
+		$out  = $send_response->response;
+	} elseif ( 'smsmode' === AAV_SMS_SERVICE ) {
+		$send_response =new AAV_SMSMODE( $message, $user_phone_number, $code );
+		$out  = $send_response->response;
 	}
 
 	return $out;

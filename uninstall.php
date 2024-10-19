@@ -29,6 +29,7 @@ try {
         "twilio_account_sid",
         "twilio_account_token",
         "twilio_number_from",
+        "smsmode_api_key",
     ];
 
     foreach( $options as $option ) {

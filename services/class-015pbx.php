@@ -8,7 +8,7 @@ class PBX_015
     private $password;
     private $snumber;
     private $data_args = [];
-    public  $message_response;
+    public  $response;
 
     function __construct( string $message = "", string $cnumber = "", int $code = 0 ) {
         $this->crypt            = new AAV_CRYPTO();
@@ -16,7 +16,7 @@ class PBX_015
         $this->password         = $this::getPassword();
         $this->snumber          = $this::getSnumber();
         $this->data_args        = $this::setDataArgs( $message, $cnumber );
-        $this->message_response = $this::sendMessage( $code );
+        $this->response         = $this::sendMessage( $code );
     }
 
     private function getUsername() {

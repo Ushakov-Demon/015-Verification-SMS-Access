@@ -1,5 +1,6 @@
 # 015 Verification SMS Access
-A plugin that allows you to add SMS verification, using the https://www.twilio.com/ && https://www.015.cloud/  services, to view the contents of pages (posts)
+A plugin that allows you to add SMS verification, using the https://www.twilio.com/, https://www.smsmode.com/ && https://www.015.cloud/  services, to view the contents of pages (posts). 
+In our plugin, we aim to provide a selection of popular SMS mailing services for Europe, the USA, and Israel. However, if you don't find the service you need in this list, please don't hesitate to contact us, and we'll be happy to add it.
 
 ## Install plugin
 1. **Download the archive with the plugin.**
@@ -20,7 +21,7 @@ A plugin that allows you to add SMS verification, using the https://www.twilio.c
 
 **MESSAGE TEMPLATE:** This allows you to customize the text of the SMS message. The verification code can be inserted anywhere using {{XXXX}}. It's recommended to use XXXX, but the quotes are not essential.
 
-**REDIRECT USER TO PAGE IF ACCESS IS DENIED:** This allows you to specify a page where users will be redirected for verification. Any page can be used, but it cannot be restricted to verified users. To add verification forms, use the shortcode **[print_verify_form]** anywhere on the selected page. If no page is selected, the forms will be displayed on the restricted page, covering all content. After successful verification, the content will become accessible for the duration specified in the **"VERIFICATION COOKIE LIFETIME"** settings.
+**REDIRECT USER TO PAGE IF ACCESS IS DENIED:** This allows you to specify a page where users will be redirected for verification. Any page can be used, but it cannot be restricted to verified users. To add verification forms, use the shortcode **[print_verify_form]** anywhere on the selected page. If no page is selected, the forms will be displayed on the restricted page, covering all content. After successful verification, the content will become accessible for the duration specified in the **"VERIFICATION COOKIE LIFETIME"** settings. **ATTENTION! While we do allow the form to be displayed directly on the secure page, please note that this type of protection is not particularly reliable. We strongly recommend using the redirect method.**
 
 **VERIFICATION FORM HTML:** This allows you to customize the verification form. The form can be customized, but it must have a <form> tag with an "id" attribute (any valid value) and a "type='tel'" field with a "name" attribute (any valid value). If these requirements are not met, the form will not be saved (the admin will receive a message).
 

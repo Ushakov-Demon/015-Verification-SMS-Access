@@ -102,3 +102,8 @@ $twilio_number_from = ! empty( get_option( "twilio_number_from" ) ) ? get_option
 if( ! defined( "TWILIO_NUMBER_FROM" ) ){
 	define( "TWILIO_NUMBER_FROM", $twilio_number_from );
 }
+
+$smsmode_api_key = ! empty( get_option( "smsmode_api_key" ) ) ? get_option( "smsmode_api_key" ) : "";
+if( ! defined( "SMSMODE_APIKEY" ) ){
+	define( "SMSMODE_APIKEY", $smsmode_api_key );
+}
